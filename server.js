@@ -1,69 +1,56 @@
 const express = require('express');
-const { Client } = require('pg');
+const { Pool } = require('pg'); // use Pool instead of Client
 const app = express();
 const port = process.env.PORT || 3000;
 
-// Serve static files (HTML, JS) from the "public" folder
+// Serve static files
 app.use(express.static('public'));
 
-// PostgreSQL client
-const client = new Client({
-  host: process.env.DB_HOST,
-  port: process.env.DB_PORT,
-  database: process.env.DB_NAME,
-  user: process.env.DB_USER,
-  password: process.env.DB_PASSWORD,
-  ssl: { rejectUnauthorized: false } // IMPORTANT for Render
+// PostgreSQL pool using DATABASE_URL
+const pool = new Pool({
+  connectionString: process.env.DATABASE_URL,
+  ssl: { rejectUnauthorized: false }, // required for Render / EC2 testing
+  connectionTimeoutMillis: 5000
 });
 
-client.connect()
-  .then(() => console.log('✅ Connected to PostgreSQL database'))
+// Test connection once at startup
+pool.connect()
+  .then(client => {
+    console.log('✅ Connected to PostgreSQL database');
+    client.release(); // release client back to pool
+  })
   .catch(err => console.error('❌ Database connection error:', err));
 
-// API route to get destination names
+// API route to get destination by name
 app.get('/destination', async (req, res) => {
+  const { name } = req.query;
+  if (!name) return res.status(400).json({ message: 'Destination name is required' });
+
   try {
-    console.log('Fetching destinations with name = Barcelona...');
-
-
-      const { name } = req.query; // 👈 from client
-        console.log(name);
-      if (!name) {
-      return res.status(400).json({ message: 'Destination name is required' });
-    }
-
-  
-    // Parameterized query
-    const result = await client.query(
+    const result = await pool.query(
       'SELECT * FROM destinations WHERE name = $1 LIMIT 1',
-      [name] // $1 is replaced by 'Barcelona'
+      [name]
     );
 
-    console.log('Query result:', result.rows);
-    res.json(result.rows[0]); // send all fields as JSON
+    if (result.rows.length === 0) return res.status(404).json({ message: 'Destination not found' });
+
+    console.log('Query result:', result.rows[0]);
+    res.json(result.rows[0]);
   } catch (err) {
     console.error('Database query error:', err.message);
-    res.status(500).send('Database query error: ' + err.message);
+    res.status(500).json({ message: 'Database query error', error: err.message });
   }
 });
 
+// API route to get image by ID
 app.get('/image', async (req, res) => {
+  const { id } = req.query;
+  if (!id) return res.status(400).json({ message: 'Image ID is required' });
+
   try {
-    const { id } = req.query;
-    console.log('Fetching image with id =', id);
+    const result = await pool.query('SELECT * FROM images WHERE id = $1 LIMIT 1', [id]);
 
-    if (!id) {
-      return res.status(400).json({ message: 'Image ID is required' });
-    }
-
-    const result = await client.query(
-      'SELECT * FROM images WHERE id = $1 LIMIT 1',
-      [id]
-    );
-
-    if (result.rows.length === 0) {
-      return res.status(404).json({ message: 'Image not found' });
-    }
+    if (result.rows.length === 0) return res.status(404).json({ message: 'Image not found' });
 
     console.log('Query result:', result.rows[0]);
     res.json(result.rows[0]);
