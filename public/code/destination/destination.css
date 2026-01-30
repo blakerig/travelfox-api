@@ -1,0 +1,127 @@
+#my-grid {
+  padding-top: 16px;
+  width: 100%;
+  flex-shrink: 1;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  /*background-image: url(/data/ui/wallpaper-idea-4.jpg);*/
+  background-position: center;
+  background-size: cover;
+}
+
+@media (min-width: 500px) {
+  #my-grid {
+    /* background: #9999ff; /* blue */
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+  }
+}
+
+@media (min-width: 700px) {
+  #my-grid {
+    /* background: orange; /* blue */
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+  }
+}
+
+@media (min-width: 1200px) {
+  #my-grid {
+    /* background: blue; /* blue */
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+  }
+}
+
+dest-banner {
+  background-image: url(/data/ui/dest-banners/barcelona.webp);
+  background-position: center;
+  background-size: cover;
+  height: 100%;
+  width: 100%;
+  grid-column: 1 / -1;
+  grid-row: 1 / 2;
+  border-bottom: 3px solid black;
+}
+
+search-bar {
+  grid-column: 1 / -1;
+  grid-row: 1 / 2;
+  width: 100%;
+  margin: auto;
+  padding-top: 16px;
+  padding-bottom: 4px;
+  background-color: #8c96a0;
+}
+
+search-bar > input {
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.33);
+  max-width: 360px;
+  width: 90%;
+  text-align: center;
+  border: 1px solid black;
+  border-radius: 10px;
+  height: 2rem;
+  flex-grow: 1;
+}
+
+input {
+  font-size: 1rem;
+  opacity: 0.8;
+  background-color: var(--page-white);
+}
+
+input:hover {
+  opacity: 1;
+}
+
+input:focus,
+input:active {
+  opacity: 1 !important;
+  /*border: 3px solid var(--accent-one) !important;*/
+  outline: 1px solid black !important;
+}
+
+input:focus::placeholder {
+  color: transparent;
+}
+
+named-icon {
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  margin: auto;
+  overflow: hidden;
+  max-width: 100%;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: visible;
+}
+
+dest-icon {
+  background-color: lightgray;
+  background-image: url(/data/ui/dest-icons/sights.webp);
+  background-position: center;
+  background-size: contain;
+  cursor: pointer;
+  justify-self: center;
+  align-content: center;
+  width: 70px;
+  height: 70px;
+  margin: auto;
+  outline: 1px solid black;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.33);
+  border-radius: 8px;
+  background-color: lightgrey;
+}
+
+icon-name {
+  margin: auto;
+  margin-top: 8px;
+  margin-bottom: 16px;
+  /* background-color: lightgoldenrodyellow; */
+  color: var(--text-black);
+  max-width: 100%;
+  text-overflow: ellipsis;
+  white-space: no-wrap;
+  overflow: hidden;
+  background-color: transparent !important;
+  text-shadow: 0px 0px 10px white;
+}

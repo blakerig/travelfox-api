@@ -1,0 +1,117 @@
+
+.rest-holder {    
+    display:flex; 
+    width: 100%;
+}
+
+.rest-card {
+    width: 100%;
+    display: flex;
+    justify-items: stretch;
+    flex-direction: column;
+}
+
+.rest-image {
+    background: center / cover no-repeat;
+    background-image: url('/ui/pics/restaurants/baos.jpg');
+    width: 100%;
+    aspect-ratio: 2;
+    max-height: 40vh;     
+    min-height: 150px;     
+}
+
+.rest-title {
+    background-color: black;
+    color: var(--light-text);
+    font-weight: bold;
+    font-size: 1.1rem;
+    padding:8px;
+}
+
+.rest-text-bit
+{
+    overflow: hidden;
+}
+
+.rest-description {
+    text-overflow: ellipsis;
+    font-size: 1rem;
+    margin: 8px;
+       overflow: hidden;
+   display: -webkit-box;
+   /*
+   -webkit-line-clamp: 2; 
+           line-clamp: 2; */
+   -webkit-box-orient: vertical;
+   max-height:260px;
+}
+
+.rest-read-more {
+ cursor: pointer;
+ margin: 0px;   
+}
+
+.info-holder {
+   display: flex;
+    flex-direction: row;
+    flex-shrink: 1;
+}
+
+.rest-table-holder {
+
+
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    margin: 4px;
+}
+
+
+.rest-info-table,
+.rest-time-table {
+    max-width: 300px;
+    align-self: center;
+
+    margin: 8px;
+}
+
+
+.icon-row {
+    display: flex;
+    justify-content: space-around; 
+}
+
+table {
+    border-collapse: collapse;
+    border-style: solid;
+    border-width: thin;
+    min-width: 200px;
+}
+
+td,
+th {
+    border-style: solid;
+    border-color: black;
+    border-width: thin;
+    
+}
+
+thead tr {
+    background: #ffffff88;
+}
+td {
+    white-space: nowrap;
+    padding: 4px;
+    padding-left: 8px;
+    padding-right: 8px;
+}
+
+tbody tr:nth-child(even) {
+}
+
+a,
+a:hover {
+    all: unset;
+    color: rgb(20, 80, 160);
+    cursor: pointer !important;
+}

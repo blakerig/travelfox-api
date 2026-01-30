@@ -1,0 +1,32 @@
+
+
+input {
+  max-width: 480px;
+  width: 90vw;
+  text-align: center;
+  border: 3px solid pink;
+  border-radius: 10px;
+  height: 2rem;
+  flex-grow: 1;
+}
+
+input {
+  font-size: 1rem;
+  opacity: 1.0;
+}
+
+input:hover {
+  opacity: 1;
+}
+
+input:focus,
+input:active {
+  opacity: 1 !important;
+
+  /*border: 3px solid var(--accent-one) !important;*/
+  outline: 2px solid black !important;
+}
+
+input:focus::placeholder {
+  color: transparent;
+}

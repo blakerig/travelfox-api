@@ -1,0 +1,525 @@
+:root {
+  --header-bkg: rgb(0, 15, 60);
+  --footer-bkg: rgb(0, 15, 60);
+  --page-white: rgb(230, 230, 230);
+  --page-gray-lighter: #8c96a0;
+  --page-gray-darker: #454a58;
+  --text-white: rgb(230, 230, 230);
+  --text-black: rgb(10, 10, 10);
+  --accent-one: #f3520c;
+  --balloon-font-size: 13.25px !important;
+  --balloon-color: #4a89c4 !important;
+  --balloon-text-color: white !important;
+  --balloon-border-radius: 8px !important;
+}
+
+* {
+  margin: 0px;
+  padding: 0px;
+  box-sizing: border-box;
+  user-select: none;
+}
+
+@font-face {
+  font-family: 'Roboto';
+  src: url("/data/ui/Roboto-Regular.woff2") format("woff2");
+}
+
+html {
+  font-size: 17px;
+  text-align: center;
+  font-family: 'Roboto';
+  overflow-x: hidden;
+  height: 100%;
+  height: 100dvh;
+  width: 100%;
+  background-color: var(--header-bkg);
+  color: var(--text-light);
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+}
+
+a {
+  text-decoration: none;
+  color: #4a89c4;
+}
+
+a:hover {
+  color: var(--accent-one);
+  text-shadow: 0px 0px 4px white;
+}
+
+#fade-wrapper {
+  position: fixed;
+  margin-top: 48px;
+  height: 100%;
+  width: 100%;
+  background: var(--header-bkg);
+  opacity: 1;
+  pointer-events: none;
+}
+
+img {
+  -webkit-user-drag: none;
+}
+
+body::-webkit-scrollbar {
+  width: 0px;
+}
+
+.fades-in {
+  animation: fadeOpacityIn 0.5s ease-out forwards;
+}
+
+.fades-out {
+  animation: fadeOpacityOut 0.5s ease-out forwards;
+}
+
+@keyframes fadeOpacityIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeOpacityOut {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+footer,
+header {
+  font-size: 1rem;
+  height: 48px;
+  max-height: 48px;
+  min-height: 48px;
+  color: var(--text-white) !important;
+  background-color: var(--header-bkg);
+  align-self: stretch;
+  justify-content: stretch;
+  align-items: center;
+  display: flex;
+}
+
+header {
+  z-index: 1;
+}
+
+.header-logo-text {
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin-left: 0.5rem;
+  margin-right: 0.5rem;
+  margin-top: 2px;
+}
+
+header > *,
+footer > * {
+  opacity: 0.95;
+}
+
+header {
+  flex-grow: 1;
+}
+
+.fs-flex-wrap {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background-color: var(--page-white);
+}
+
+.flex-grow {
+  flex: 1;
+}
+
+.flex-row {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.flex-col {
+  display: flex;
+  flex-direction: column;
+  justify-content: stretch;
+}
+
+.world-icon,
+.app-icon,
+.to-top-icon,
+.back-icon,
+.profile-icon {
+  width: 36px;
+  height: 36px;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  flex-shrink: 0;
+  cursor: pointer;
+}
+
+.world-icon {
+  background-image: url(/data/ui/core-icons/world-icon.webp);
+}
+
+.to-top-icon {
+  background-image: url(/data/ui/core-icons/arrow-up.webp);
+}
+
+.profile-icon {
+  background-image: url(/data/ui/core-icons/profile-icon-128x128.webp);
+}
+
+.back-icon {
+  background-image: url(/data/ui/core-icons/arrow-left.webp);
+}
+
+.app-icon {
+  cursor: default;
+  background-image: url(/data/ui/core-icons/logo-128x128.webp);
+}
+
+.world-banner {
+  background: black;
+  background-image: url(/data/ui/world-banners/istanbul-turkey.webp);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: 50% 50%;
+  display: flex;
+  flex-shrink: 0;
+  flex-direction: row;
+  border-bottom: 3px solid black;
+  height: 50%;
+}
+
+/*
+.world-banner,
+.dest-banner {
+  background: black;
+  background-image: url(../data/ui/pics/place-banners/istanbul-turkey.webp);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: 50% 50%;
+  display: flex;
+  flex-shrink: 0;
+  flex-direction: row;
+  border-bottom: 3px solid black;
+}
+
+input:not(:placeholder-shown)[type='password'] {
+  font-family: Verdana;
+  letter-spacing: 0.125em;
+}
+
+// This is a central wrapper with a minimum width 
+.wrapper {
+  // min-width: 344px;  galaxy fold 5, lowest width device I could find 
+  // I can't remember/see the function/point of this code so i commented it out
+  margin-left: 50%;
+  translate: -50%;
+
+  overflow-x: hidden;
+  overflow-y: auto;
+  overflow-y: overlay;
+  user-select: none;
+  width: 100%;
+  height: 100;
+  //  background: url('./data/ui/pics/bkg01.webp') no-repeat center center ;
+
+  background-size: cover;
+}*/
+/*
+.social-media-icon {
+  opacity: .5;
+  margin-right: .5rem;
+}
+
+.social-media-icon:hover {
+  cursor: pointer;
+  opacity: .9;
+}
+*/
+/*
+// form dialog styles 
+
+// pre-filled emails in select box are blue without this
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+textarea:-webkit-autofill,
+textarea:-webkit-autofill:hover,
+textarea:-webkit-autofill:focus,
+select:-webkit-autofill,
+select:-webkit-autofill:hover,
+select:-webkit-autofill:focus {
+  -webkit-box-shadow: 0 0 0px 1000px #ffffff inset !important;
+}
+
+.form-gap-sml {
+  height: 0.5rem;
+}
+
+.form-gap {
+  height: 1rem;
+}
+
+.form-gap-big {
+  height: 1.5rem;
+}
+
+.form {
+  min-width: 20rem;
+  border: 3px solid var(--base-softer);
+  border-radius: 1rem;
+  font-family: Roboto;
+  text-align: center;
+  color: black;
+  color: var(--black75);
+  background: var(--white50);
+  padding: 1.5rem;
+  margin-left: 1rem;
+  margin-right: 1rem;
+  max-width: 25rem;
+  flex-grow: 1;
+}
+
+.form-title {
+  font-size: 2rem;
+  color: var(--base-normal);
+}
+
+.form-line {
+  background-color: var(--base-softer);
+  height: 0.67px;
+  min-width: 100px;
+  margin: 0;
+}
+
+.form-captcha,
+.form-input {
+  padding-left: 10px;
+  padding-right: 10px;
+  border: 2px solid var(--base-softer);
+  background-color: var(--white50);
+  border-radius: 5px;
+  height: 2rem;
+  flex-grow: 1;
+}
+
+.form-input:hover {
+  border: 2px solid var(--accent-one) !important;
+}
+
+.form-input:focus,
+.form-input:active {
+  outline: none;
+  background: var(--pop-fill);
+  border: 2px solid var(--accent-one) !important;
+}
+
+.form-checkbox {
+  margin: auto;
+  height: 12px;
+  cursor: pointer;
+}
+
+input[type='checkbox']:hover {
+  outline: 1px solid var(--accent-one);
+  outline-offset: -1px;
+}
+
+.form-checkbox {
+  scale: 1.5;
+  margin-left: 0.25em;
+}
+
+.form-checkbox-label {
+  vertical-align: middle;
+  margin-left: 0.5em;
+}
+
+.form-captcha {
+  flex: 0;
+  width: 7.7em;
+}
+
+.form-info-icon {
+  opacity: 0.22;
+  margin: -1.6em 0.4em 0.4em 0.4em;
+  width: 1.2em;
+  // align-self: flex-end; 
+  left: calc(100% - 2em);
+}
+
+.form-info-icon:hover {
+  opacity: 0.9;
+}
+
+// to do review which of the following are still reauired
+
+input,
+textarea {
+  padding-left: 10px;
+  padding-right: 10px;
+  font: 16px 'Roboto';
+  font-size: 1rem;
+}
+
+input::placeholder {
+  opacity: 0.5;
+}
+  */
+/*
+textarea {
+  height: 16rem;
+  //   min-height: 12.2rem;
+  //  min-height: 5.5rem;
+  max-height: 16rem;
+  padding-top: 6px;
+  padding-bottom: 6px;
+  border: 1px solid black;
+  border-radius: 5px;
+  resize: none;
+  display: inline-block;
+  //  overflow: hidden;
+}
+
+select {
+  // this removes the drop down arrow on the right of the input selector I think
+  -moz-appearance: none;
+  // Firefox
+  -webkit-appearance: none;
+  // Safari and Chrome
+  background: url(../data/ui/pics/down-chevron.svg) no-repeat right 0.5rem center #fff;
+  background-size: 16px 16px;
+  -webkit-appearance: none;
+  appearance: none;
+  font-family: Roboto;
+  font-size: 1rem;
+  padding-left: 10px;
+  padding-right: 10px;
+  border: 1px solid black;
+  border-radius: 5px;
+  height: 2rem;
+  flex-grow: 1;
+}
+
+.validation-error {
+  display: none;
+  margin-left: 0.1rem;
+  margin-top: 0.5rem;
+  font-size: 0.9rem;
+  color: #aa0000;
+  text-align: left;
+}
+*/
+/*
+#world-search-box.form-input {
+  background-color: white;
+}
+
+#world-search-box::placeholder {
+  color: black;
+}
+
+#world-search-box:placeholder-shown {
+  text-overflow: ellipsis;
+}
+
+#world-search-box:focus::placeholder {
+  color: transparent;
+}
+*/
+.card-holder {
+  justify-content: center;
+  display: flex;
+  flex-wrap: wrap;
+  padding: 4px;
+  align-self: center;
+  max-width: 1536px;
+}
+
+.dest-card,
+.card {
+  display: flex;
+  flex-direction: column;
+  margin: 8px;
+  height: 172px;
+  cursor: pointer;
+  border-radius: 10px;
+  background-color: white;
+  padding: 8px;
+  outline: solid 3px var(--header-bkg);
+}
+
+.card:hover {
+  outline: solid 3px var(--accent-one);
+}
+
+.dest-card {
+  border-radius: 0;
+  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.33);
+  background-color: #fafafa;
+}
+
+/*
+.type-card {
+  background-color: rgb(200, 200, 200);
+  height: 100px;
+  width: 100px;
+  max-width: 200px;
+  width: calc(100% / 2 - (8px * 3));
+  width: calc(100% / 6 - 8px * 3);
+}
+
+.type-card-image {
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  flex: 1;
+}
+*/
+.card-image {
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  flex: 1;
+}
+
+.card-footer {
+  font-size: .9rem;
+  overflow: hidden;
+  white-space: nowrap;
+  flex: 1 1 1;
+  align-self: stretch;
+  padding-top: 4px;
+  outline-offset: -1px;
+  margin-right: -2px;
+  margin-left: -2px;
+  text-overflow: ellipsis;
+}
+
+/*
+#world-search-box {
+  border: none;
+  outline: solid 3px var(--base-softer);
+}
+
+#world-search-box:focus,
+#world-search-box:hover {
+  outline: solid 3px var(--accent-one);
+  border: none !important;
+}
+*/

@@ -1,0 +1,298 @@
+  <!DOCTYPE html>
+  <html>
+
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, viewport-fit=cover">
+    <link rel="manifest" href="../../../manifest.json" />
+
+    <!-- this is all aimed at getting PWA to start fullscreen on andoird/ios -->
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+    <title>Restaurants</title>
+    <link rel='icon' href='/data/ui/pics/app-icons/icon-128.webp' />
+    <link id="myCss" rel='stylesheet' href='/index.css' />
+    <link id="myCss" rel='stylesheet' href='./restaurants.css' />
+
+    <script type="module">
+      import { ErrorTrace } from '/js/error-trace.js'
+      await ErrorTrace.SetupTrace()
+    </script>
+  </head>
+
+  <body class="body">
+
+    <div class='header'>
+
+      <div style="display: flex; flex:1; margin: auto;">
+        <div class="back-icon" onclick="history.back()" style="margin-left: 8px ;"></div>
+        <div class="header-logo-text" style="margin: auto; margin-left:8px">Restaurants</div>
+        <div class="flex-grow"></div>
+        <div class="profile-icon" style="margin-right: 8px"></div>
+      </div>
+    </div>
+
+    <div class="dest-banner" style="background-image: url('./banner4.webp');">
+    </div>
+
+    <div class="rest-holder fades-in">
+
+      <div class="rest-card">
+        <div class="rest-image"></div>
+        <div class="rest-title">Bao's</div>
+        <div class="info-holder">
+
+        <div class="rest-text-bit">
+          <div class="rest-description">
+            Bao's is a terrific Asian restaurant that serves freshly-prepared gyoza dumplings and silky bao buns.
+            <br><br>The bao buns are the signature dish, and definitely worth coming for: light, soft and oozing with
+            flavour. Many Chinese restaurants in Barcelona serve bao buns that are too heavy or have a cardboard texture,
+            so it is refreshing to find ones that are so good.<br><br>The gyoza are excellent, too: freshly prepared right
+            on the counter.<br><br>In fact, there’s not a dish that we wouldn’t recommend. Definitely give the noodle
+            dishes a try – highly flavoursome.<br><br>Prices are reasonable, though unfortunately portions are a little
+            small. Still, it’s nice to order a few to share - you can always order more if you are still
+            hungry!<br><br>The place isn’t hug, perhaps no more than half a dozen tables inside and a couple that are
+            outside.<br><br>Staff are friendly and have a smattering of English.<br><br>This is a very good place for
+            take-away, too.
+          </div>
+          <a class='rest-read-more' style="margin-bottom: 24px;">
+            ( Read More )
+          </a>
+        </div>
+
+        <div class="rest-table-holder">
+
+
+
+          <!--        <div class="rest-table-wrapper">-->
+
+
+
+          <div class="rest-time-table">
+            <table style="border: 1px solid black;">
+              <colgroup>
+                <col style="width:0%;" span="1">
+                <col style="width:100%;" span="1">
+              </colgroup>
+
+              <thead>
+                <tr>
+                  <td>
+                    ( o )
+                  </td>
+                  <td colspan=2>
+                    <b>Opening Times</b>
+                  </td>
+                </tr>
+              </thead>
+
+              <tbody>
+
+                <tr>
+                  <td>
+                    Mon
+                  </td>
+                  <td>
+                    Closed
+                  </td>
+                </tr>
+
+                <tr>
+                  <td>
+                    Tue<br>to<br>Sun
+                  </td>
+                  <td>
+                    13:30 - 16:30<div style="margin: 4px;"></div>
+                    19:00 - 23:00
+                  </td>
+                </tr>
+                <!--
+              <tr>
+                <td>
+                  Wed
+                </td>
+                <td>
+                  10:30 - 12:00
+                </td>
+              </tr>
+
+              <tr>
+                <td>
+                  Thu
+                </td>
+                <td>
+                  10:30 - 12:00
+                </td>
+              </tr>
+
+              <tr>
+                <td>
+                  Fri
+                </td>
+                <td>
+                  10:30 - 12:00
+                </td>
+              </tr>
+
+              <tr>
+                <td>
+                  Sat
+                </td>
+                <td>
+                  10:30 - 12:00
+                </td>
+              </tr>
+
+              <tr>
+                <td>
+                  Sun
+                </td>
+                <td>
+                  10:30 - 12:00
+                </td>
+              </tr>
+  -->
+
+            </table>
+
+          </div>
+
+
+          <div class="rest-info-table">
+            <table style="border: 1px solid black;">
+              <colgroup>
+                <col style="width:0%;" span="1">
+                <col style="width:100%;" span="1">
+              </colgroup>
+
+              <thead>
+                <tr>
+                  <td>
+                    ( i )
+                  </td>
+                  <td colspan=2>
+                    <b>Key Information</b>
+                  </td>
+                </tr>
+              </thead>
+
+              <tbody>
+
+                <tr>
+                  <td>
+                    (X)
+                  </td>
+                  <td>
+                    Italian
+                  </td>
+                </tr>
+
+                <tr>
+                  <td>
+                    (£)
+                  </td>
+                  <td>
+                    Average
+                  </td>
+                </tr>
+
+                <tr>
+                  <td>
+                    (C)
+                  </td>
+                  <td>
+                    <a>+44 123 456789</a>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td colspan="2">
+                    <div class="icon-row">
+                      <div>(W)</div>
+                      <div>(D)</div>
+                      <div>(S)</div>
+                      <div>(F)</div>
+                    </div>
+                  </td>
+                </tr>
+
+
+                <!--
+
+
+              <tr>
+                <td>
+                  Website
+                </td>
+                <td>
+                  <a href="baosbarcelona.com">baosbarcelona.com</a>
+                </td>
+              </tr>
+
+              <tr>
+                <td>
+                  Directions
+                </td>
+                <td>
+                  <a>View location on a map.</a>
+                </td>
+              </tr>
+
+              <tr>
+                <td>
+                  Share
+                </td>
+                <td>
+                  <a>Share this link with others.</a>
+                </td>
+              </tr>
+
+              <tr>
+                <td>
+                  Favs
+                </td>
+                <td>
+                  <a>Add to your favourites.</a>
+                </td>
+              </tr>
+              -->
+
+            </table>
+
+          </div>
+          <!--</div>-->
+
+        </div>
+      </div>
+
+    </div>
+
+    </div>
+
+    <div class="flex-grow"></div>
+
+    <div class='footer'>
+
+      <div style="display: flex; flex:1; margin: auto;">
+
+        <div id="go-to-top" class="to-top-icon" style="margin-left: 8px;"></div>
+        <div style="margin: auto; font-size: 1rem; margin-left:8px; opacity: .9;">Top</div>
+        <div class="flex-grow"></div>
+        <div style="margin: auto; margin-right:8px; opacity: .9;">© 2205</div>
+        <div class="app-icon" style="margin-right: 8px"></div>
+      </div>
+
+    </div>
+
+    <div id="chunk-wrapper" class="fades-out">
+
+    </div>
+
+
+  </body>
+
+  <script type="module" src="./restaurants.js">
+  </script>
+
+  </html>

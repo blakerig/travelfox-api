@@ -1,0 +1,35 @@
+{
+  "name": "TravelFox",
+  "short_name": "TravelFox",
+  "start_url": "/",
+  "display": "fullscreen",
+  "theme_color": "#000000",
+  "background_color": "#000F3C",
+  "icons": [
+    {
+      "src": "/data/ui/app-icons/icon-512.webp",
+      "sizes": "512x512",
+      "type": "image/webp"
+    },
+    {
+      "src": "/data/ui/app-icons/icon-256.webp",
+      "sizes": "256x256",
+      "type": "image/webp"
+    },
+    {
+      "src": "/data/ui/app-icons/icon-192.webp",
+      "sizes": "256x256",
+      "type": "image/webp"
+    },
+    {
+      "src": "/data/ui/app-icons/icon-128.webp",
+      "sizes": "128x128",
+      "type": "image/webp"
+    },
+    {
+      "src": "/data/ui/app-icons/icon-64.webp",
+      "sizes": "64x64",
+      "type": "image/webp"
+    }
+  ]
+}
