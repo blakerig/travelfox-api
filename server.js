@@ -1,3 +1,5 @@
+import cors from 'cors';
+
 const express = require('express');
 const { Pool } = require('pg'); // use Pool instead of Client
 const app = express();
@@ -6,6 +8,18 @@ const port = process.env.PORT || 3000;
 // Serve static files
 app.use(express.static('public'));
 
+/* for dev only, eventually needs changing to something like:
+app.use(cors({
+  origin: [
+    'http://localhost:5173',
+    'http://localhost:3000',
+    'https://your-frontend.onrender.com'
+  ]
+})); */
+app.use(cors());
+
+console.log('DATABASE_URL:', process.env.DATABASE_URL);
+//exit;
 // PostgreSQL pool using DATABASE_URL
 const pool = new Pool({
   connectionString: process.env.DATABASE_URL,

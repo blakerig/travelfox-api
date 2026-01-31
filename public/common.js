@@ -1,6 +1,7 @@
 // common.js
 const uiRoot = '/data/ui/dest-icons/';
 const urlRoot = '';
+const API_ROOT = import.meta?.env?.VITE_API_ROOT || 'https://travelfox-api.onrender.com/destination?name=Barcelona';
 
 const STORAGE_DESTINATION = 'destinationDetails';
 
@@ -48,7 +49,8 @@ async function getDestinationDetails(destinationName) {
   console.log("Fetching destination:", destinationName);
 
   // Fetch main destination data
-  const res =  await fetch('/destination?name=' + encodeURIComponent(destinationName));
+  console.log("API ROOT " + API_ROOT)
+  const res =  await fetch(API_ROOT + '/destination?name=' + encodeURIComponent(destinationName));
   console.log("hhhher");
   if (!res.ok) throw new Error(`Failed to fetch destination: ${res.status}`);
   console.log("hhhher");
@@ -60,7 +62,7 @@ async function getDestinationDetails(destinationName) {
 
   // Fetch main banner image if available
   if (data.main_image) {
-    const imgRes = await fetch('/image?id=' + encodeURIComponent(data.main_image));
+    const imgRes = await fetch(API_ROOT + '/image?id=' + encodeURIComponent(data.main_image));
     if (!imgRes.ok) throw new Error(`Failed to fetch image: ${imgRes.status}`);
     const imgData = await imgRes.json();
     destinationDetails.imageUrl = imgData.image_link || '';
