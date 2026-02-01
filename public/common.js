@@ -1,7 +1,7 @@
 // common.js
 const uiRoot = '/data/ui/dest-icons/';
 const urlRoot = '';
-const API_ROOT = import.meta?.env?.VITE_API_ROOT || 'https://travelfox-api.onrender.com/destination?name=Barcelona';
+const API_ROOT = import.meta?.env?.VITE_API_ROOT || 'https://travelfox-api.onrender.com';
 
 const STORAGE_DESTINATION = 'destinationDetails';
 

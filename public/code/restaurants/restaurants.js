@@ -16,7 +16,7 @@ class RestaurantsPage {
   async init() {
     console.log('RestaurantPage.init()')
      
-    let db = await fetch('/test/full-database.json').then((response) => response.json());
+    let db = await fetch('./test/full-database.json').then((response) => response.json());
     console.log(db.data.__collections__.aboutTheApp.aboutTheApp.description.length)
     //console.log(db.data.__collections__.destinations.barcelona.__collections__.restaurants)
     var restaurantsCollection = db.data.__collections__.destinations.barcelona.__collections__.restaurants

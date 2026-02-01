@@ -1,7 +1,7 @@
 import './common.js';
-import { RestaurantsPage } from '/code/restaurants/restaurants.js';
+import { RestaurantsPage } from './code/restaurants/restaurants.js';
 import { initDestination } from './common.js';
-import { Destination } from '/code/destination/destination.js';
+import { Destination } from './code/destination/destination.js';
 
 const destinationPage = new Destination();
 const urlPageTitle = "TravelFox";
@@ -52,7 +52,7 @@ const urlRoutes = {
     description: "Page not found",
   },
 "/destination/": {
-  template: "/code/destination/destination.html",
+  template: "./code/destination/destination.html",
   title: "Test | " + urlPageTitle,
   hook: async () => {
     const destinationData = await initDestination();
@@ -66,13 +66,13 @@ const urlRoutes = {
   description: "This is the destination page",
 },
   "/destination/restaurants/": {
-    template: "/code/restaurants/restaurants.html",
+    template: "./code/restaurants/restaurants.html",
     title: "Test | " + urlPageTitle,
-    hook: () => { new RestaurantsPage('/code/restaurants/').init() },
+    hook: () => { new RestaurantsPage('./code/restaurants/').init() },
     description: "This is the restaurants page",
   },
   "/about/": {
-    template: "/code/information/about.html",
+    template: "./code/information/about.html",
     title: "About Us | " + urlPageTitle,
     hook: undefined,
     description: "This is the about page",
@@ -87,11 +87,12 @@ const urlRoute = (href) => {
 
 // URL location handler
 const urlLocationHandler = async () => {
-  let location = window.location.pathname;
+  //let location = window.location.pathname;
+  const location = window.location.hash.slice(1) || "/destination/";
 
   // Redirect / or /index.html → /destination/
   if (location === "/" || location === "/index.html") {
-    window.history.replaceState({}, "", "/destination/");
+    window.history.replaceState({}, "", "#/destination/");
     location = "/destination/";
   }
 
@@ -100,14 +101,16 @@ const urlLocationHandler = async () => {
     window.history.replaceState({}, "", location + "/");
     location = location + "/";
   }
-
+  console.log("urlRoutes[location]:", urlRoutes[location]);
   console.log("Current route:", location);
 
   const route = urlRoutes[location] || urlRoutes["/404/"];
 
+  console.log(route);
   // Load template safely
   let html = "";
   try {
+    console.log("route template " + route.template);
     const res = await fetch(route.template);
     if (!res.ok) throw new Error(`Failed to load ${route.template}`);
     html = await res.text();
