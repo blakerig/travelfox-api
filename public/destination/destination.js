@@ -1,4 +1,4 @@
-const uiRoot = '/data/ui/dest-icons/';
+const uiRoot = '/public/ui/dest-icons/';
 const urlRoot = '';
 
 class NamedIcon {
@@ -71,11 +71,13 @@ this.#destBanner.style.backgroundImage = `url(${imageUrl})`;
       namedIcons.push(
         new NamedIcon(
           s,
-          uiRoot + s.replace(/\s+/g, '-') + '.webp',
+          uiRoot + s.replace(/\s+/g, '-').toLowerCase() + '.webp',
           urlRoot + s.toLowerCase() + '/',
           index++
         )
       );
+
+      console.log("i " + urlRoot + s.toLowerCase() + '/');
     }
 
     for (const icon of namedIcons) {

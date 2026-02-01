@@ -1,7 +1,12 @@
 // common.js
-const uiRoot = '/data/ui/dest-icons/';
-const urlRoot = '';
-const API_ROOT = import.meta?.env?.VITE_API_ROOT || 'https://travelfox-api.onrender.com';
+export const uiRoot = '/data/ui/dest-icons/';
+export const urlRoot = '';
+export const API_ROOT = import.meta?.env?.VITE_API_ROOT || 'https://travelfox-api.onrender.com';
+export const APP_ROOT = "/public/";
+window.APP_ROOT = "/public/";
+
+//const linkEl = document.getElementById("myCss");
+//linkEl.href = window.APP_ROOT + "code/destination/destination.css";
 
 const STORAGE_DESTINATION = 'destinationDetails';
 

@@ -1,10 +1,52 @@
 import './common.js';
-import { RestaurantsPage } from './code/restaurants/restaurants.js';
-import { initDestination } from './common.js';
-import { Destination } from './code/destination/destination.js';
+import { RestaurantsPage } from './restaurants/restaurants.js';
+import { APP_ROOT, initDestination } from './common.js';
+import { Destination } from './destination/destination.js';
 
 const destinationPage = new Destination();
 const urlPageTitle = "TravelFox";
+
+// Global urlRoute function
+const urlRoute = (href) => {
+  window.history.pushState({}, "", href);
+  urlLocationHandler();
+};
+
+// URL route mapping
+const urlRoutes = {
+  "/404/": {
+    template: `${APP_ROOT}404/404.html`,
+    title: "404 | " + urlPageTitle,
+    hook: undefined,
+    description: "Page not found",
+  },
+"/destination/": {
+  template: `${APP_ROOT}destination/destination.html`,
+  title: "Test | " + urlPageTitle,
+  hook: async () => {
+    const destinationData = await initDestination();
+    if (!destinationData) {
+      console.warn("No destination data available. Cannot initialize Destination page.");
+      return;
+    }
+    const page = new Destination();
+    await page.init(destinationData);
+  },
+  description: "This is the destination page",
+},
+  "/destination/restaurants/": {
+    template: `${APP_ROOT}restaurants/restaurants.html`,
+    title: "Test | " + urlPageTitle,
+    hook: () => { new RestaurantsPage('./restaurants/').init() },
+    description: "This is the restaurants page",
+  },
+  "/about/": {
+    template: `${APP_ROOT}information/about.html`,
+    title: "About Us | " + urlPageTitle,
+    hook: undefined,
+    description: "This is the about page",
+  }
+};
 
 document.addEventListener('DOMContentLoaded', async () => {
   console.log("DOM fully loaded");
@@ -43,47 +85,8 @@ document.addEventListener("click", (e) => {
   urlRoute(href);
 });
 
-// URL route mapping
-const urlRoutes = {
-  "/404/": {
-    template: "/code/404/404.html",
-    title: "404 | " + urlPageTitle,
-    hook: undefined,
-    description: "Page not found",
-  },
-"/destination/": {
-  template: "./code/destination/destination.html",
-  title: "Test | " + urlPageTitle,
-  hook: async () => {
-    const destinationData = await initDestination();
-    if (!destinationData) {
-      console.warn("No destination data available. Cannot initialize Destination page.");
-      return;
-    }
-    const page = new Destination();
-    await page.init(destinationData);
-  },
-  description: "This is the destination page",
-},
-  "/destination/restaurants/": {
-    template: "./code/restaurants/restaurants.html",
-    title: "Test | " + urlPageTitle,
-    hook: () => { new RestaurantsPage('./code/restaurants/').init() },
-    description: "This is the restaurants page",
-  },
-  "/about/": {
-    template: "./code/information/about.html",
-    title: "About Us | " + urlPageTitle,
-    hook: undefined,
-    description: "This is the about page",
-  }
-};
 
-// Global urlRoute function
-const urlRoute = (href) => {
-  window.history.pushState({}, "", href);
-  urlLocationHandler();
-};
+
 
 // URL location handler
 const urlLocationHandler = async () => {
