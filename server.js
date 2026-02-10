@@ -14,9 +14,6 @@ const port = process.env.PORT || 3000;
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-// Serve static frontend files
-app.use(express.static(path.join(__dirname, 'public')));
-
 // Dev-friendly CORS
 app.use(cors({
   origin: [
@@ -26,6 +23,10 @@ app.use(cors({
     // add your frontend URL if hosted remotely
   ]
 }));
+
+// Serve static frontend files
+app.use(express.static(path.join(__dirname, 'public')));
+
 
 // Check DATABASE_URL
 //if (!process.env.DATABASE_URL) {
