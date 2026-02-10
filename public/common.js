@@ -8,9 +8,12 @@
 export const uiRoot = '/ui/dest-icons/';
 export const urlRoot = '';
 //export const API_ROOT = import.meta?.env?.VITE_API_ROOT || 'https://travelfox-api.onrender.com';
-export const API_ROOT = 'http://localhost:3000';
-export const APP_ROOT = "/";
-window.APP_ROOT = "/";
+//export const API_ROOT = 'http://localhost:3000';
+//export const APP_ROOT = "/";
+export const API_ROOT = "https://travelfox-api.onrender.com"
+export const APP_ROOT = "/travelfox/";
+//window.APP_ROOT = "/";
+window.APP_ROOT = "/travelfox/";
 
 /* These are the names of the ares where we will store the various sections so that they do not need
    to be reloaded again during the same session. These will only be loaded into storage once needed

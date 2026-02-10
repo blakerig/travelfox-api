@@ -96,7 +96,7 @@ const urlRoutes = {
 
 document.addEventListener('DOMContentLoaded', async () => {
   console.log("DOM fully loaded");
-console.log(APP_ROOT);
+console.log("APP ROOT IS " + APP_ROOT);
   // Load or fetch destination data
   const data = await initDestination();
   console.log("Destination data loaded:", data);
@@ -170,6 +170,7 @@ const urlLocationHandler = async () => {
   // Load template
   let html = "";
   try {
+    console.log("fetching " + route.template);
     const res = await fetch(route.template);
     if (!res.ok) throw new Error(`Failed to load ${route.template}`);
     html = await res.text();
