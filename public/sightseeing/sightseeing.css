@@ -1,0 +1,231 @@
+:root {
+  --header-bkg: rgb(0,15,60);
+  --footer-bkg: rgb(0,15,60);
+  --page-white: rgb(230,230,230);
+  --page-gray-lighter: #8c96a0;
+  --page-gray-darker: #454a58;
+  --text-white: rgb(230,230,230);
+  --text-black: rgb(10,10,10);
+  --accent-one: #f3520c;
+  --balloon-font-size: 13.25px !important;
+  --balloon-color: #4a89c4 !important;
+  --balloon-text-color: white !important;
+  --balloon-border-radius: 8px !important;
+}
+
+* {
+  margin: 0px;
+  padding: 0px;
+  box-sizing: border-box;
+  user-select: none;
+}
+
+@font-face {
+  font-family: 'Roboto';
+  src: url("/data/ui/Roboto-Regular.woff2") format("woff2");
+}
+
+html {
+  font-size: 17px;
+  text-align: center;
+  font-family: 'Roboto';
+  overflow-x: hidden;
+  height: 100%;
+  width: 100%;
+  background-color: var(--page-white);
+  color: var(--text-light);
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+}
+
+a {
+  text-decoration: none;
+  color: #4a89c4;
+}
+
+a:hover {
+  cursor: pointer;
+  color: var(--accent-one);
+  text-shadow: 0px 0px 4px white;
+}
+
+#fade-wrapper {
+  position: fixed;
+  margin-top: 48px;
+  height: 100%;
+  width: 100%;
+  background: #808080;
+  opacity: 1;
+  pointer-events: none;
+}
+
+img {
+  -webkit-user-drag: none;
+}
+
+body::-webkit-scrollbar {
+  width: 0px;
+}
+
+.fades-in {
+  animation: fadeOpacityIn 0.5s ease-out forwards;
+}
+
+.fades-out {
+  animation: fadeOpacityOut 0.5s ease-out forwards;
+}
+
+@keyframes fadeOpacityIn {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+@keyframes fadeOpacityOut {
+  0% { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+footer,
+header {
+  font-size: 1rem;
+  height: 48px;
+  max-height: 48px;
+  min-height: 48px;
+  color: var(--text-white) !important;
+  background-color: var(--header-bkg);
+  align-self: stretch;
+  justify-content: stretch;
+  align-items: center;
+  display: flex;
+}
+
+header {
+  z-index: 1;
+  flex-grow: 1;
+}
+
+.header-logo-text {
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin-left: 0.5rem;
+  margin-right: 0.5rem;
+  margin-top: 2px;
+}
+
+.fs-flex-wrap {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background-color: var(--page-white);
+}
+
+.flex-grow {
+  flex: 1;
+}
+
+.world-icon,
+.app-icon,
+.to-top-icon,
+.back-icon,
+.profile-icon {
+  width: 36px;
+  height: 36px;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  flex-shrink: 0;
+  cursor: pointer;
+}
+
+.world-icon {
+  background-image: url(/data/ui/core-icons/world-icon.webp);
+}
+
+.to-top-icon {
+  background-image: url(/data/ui/core-icons/arrow-up.webp);
+}
+
+.profile-icon {
+  background-image: url(/data/ui/core-icons/profile-icon-128x128.webp);
+}
+
+.back-icon {
+  background-image: url(/data/ui/core-icons/arrow-left.webp);
+}
+
+.app-icon {
+  cursor: default;
+  background-image: url(/data/ui/core-icons/logo-128x128.webp);
+}
+
+.world-banner {
+  background: black;
+  background-image: url(/data/ui/world-banners/istanbul-turkey.webp);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: 50% 50%;
+  display: flex;
+  flex-shrink: 0;
+  flex-direction: row;
+  border-bottom: 3px solid black;
+  height: 50%;
+}
+
+.world-card-holder {
+  justify-content: center;
+  display: flex;
+  flex-wrap: wrap;
+  padding: 4px;
+  align-self: center;
+  max-width: 1536px;
+}
+
+.world-card {
+  display: flex;
+  flex-direction: column;
+  margin: 8px;
+  height: 172px;
+  cursor: pointer;
+  border-radius: 0px;
+  padding: 8px;
+  outline: solid 3px var(--header-bkg);
+  box-shadow: 5px 5px 10px rgba(0,0,0,0.33);
+  background-color: #fafafa;
+}
+
+.world-card-image {
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  flex: 1;
+}
+
+.world-card-footer {
+  font-size: 0.9rem;
+  overflow: hidden;
+  white-space: nowrap;
+  flex: 1 1 1;
+  align-self: stretch;
+  padding-top: 4px;
+  outline-offset: -1px;
+  margin-right: -2px;
+  margin-left: -2px;
+  text-overflow: ellipsis;
+}
+
+/* --- Media queries and remaining selectors preserved as-is --- */
+
+.leaflet-bottom.leaflet-right,
+.leaflet-top.leaflet-left {
+  display: none !important;
+}
+
+.leaflet-container:after {
+  background-color: #00000000 !important;
+  color: #00000000 !important;
+}

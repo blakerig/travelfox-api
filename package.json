@@ -4,7 +4,8 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js"
+    "start": "node server.js",
+    "dev": "cross-env NODE_ENV=development npm start"
   },
   "engines": {
     "node": "18.x"
@@ -14,8 +15,12 @@
   "license": "ISC",
   "dependencies": {
     "cors": "^2.8.6",
+    "dotenv": "^17.2.3",
     "express": "^4.22.1",
     "pg": "^8.11.3",
     "uuid": "^9.0.1"
+  },
+  "devDependencies": {
+    "cross-env": "^10.1.0"
   }
 }

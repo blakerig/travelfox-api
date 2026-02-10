@@ -1,25 +1,7 @@
-const uiRoot = '/public/ui/dest-icons/';
+const uiRoot = '/ui/dest-icons/';
 const urlRoot = '';
 
-class NamedIcon {
-  constructor(name, image, href, index) {
-    this.name = name;
-    this.image = image;
-    this.href = href;
-    this.index = index;
-  }
-
-  toHtml() {
-    // The spacer is used to help arrange the grid aesthetically
-    return `
-      <named-icon id='named-icon-${this.index}' data-href='/destination/${this.href}'>
-        <dest-icon style='background-image: url(${this.image});'></dest-icon>
-        <icon-name>${this.name}</icon-name>
-      </named-icon>
-      <spacer id='spacer-${this.index}' style='display:none; background:red'></spacer>
-    `;
-  }
-}
+import { logger } from '../common.js';
 
 class Destination {
   #destBanner;
@@ -32,73 +14,81 @@ class Destination {
     this.#route = route;
   }
 
-  /** 
-   * Initializes the page after destination data is ready 
-   * @param {Object} destinationDetailsObj - The object returned by initDestination
-   */
   async init(destinationDetailsObj) {
-    console.log("Initializing Destination page with data", destinationDetailsObj);
+    logger.log("Initializing Destination page with data: ", destinationDetailsObj);
 
     this.#destBanner = document.querySelector('dest-banner');
     this.#myGrid = document.querySelector('#my-grid');
     this.#headerTitle = document.getElementById('header-title');
-    this.#destBanner = document.querySelector('dest-banner');
 
     if (!this.#myGrid) {
-      console.error('Destination: #my-grid not found');
+      logger.error('Destination: #my-grid not found');
       return;
     }
 
-    const details = destinationDetailsObj.details;
-    const imageUrl = destinationDetailsObj.imageUrl
-    const destinationName = destinationDetailsObj.name;
-
-    this.#headerTitle.textContent = destinationName ?? '';
-    console.log("bi " + JSON.stringify(imageUrl));
-    console.log("banner " + this.#destBanner);
-this.#destBanner.style.backgroundImage = `url(${imageUrl})`;
-
-    let html = '';
-    let namedIcons = [];
-
-    const sectionsArray = details?.sections?.split(',') ?? [];
-    let index = 0;
-
-    for (const section of sectionsArray) {
-      const s = section.trim();
-      if (!s) continue;
-
-      namedIcons.push(
-        new NamedIcon(
-          s,
-          uiRoot + s.replace(/\s+/g, '-').toLowerCase() + '.webp',
-          urlRoot + s.toLowerCase() + '/',
-          index++
-        )
-      );
-
-      console.log("i " + urlRoot + s.toLowerCase() + '/');
+    // Set header and banner
+    this.#headerTitle.textContent = destinationDetailsObj.dest_name ?? '';
+    if (this.#destBanner) {
+      this.#destBanner.style.backgroundImage = `url(${destinationDetailsObj.image_link})`;
     }
 
-    for (const icon of namedIcons) {
-      html += icon.toHtml();
-    }
+    // Build icons safely using DocumentFragment
+    const sectionsArray = destinationDetailsObj?.sections?.split(',') ?? [];
+    const fragment = document.createDocumentFragment();
+    this.#namedIcons = []; // reset
 
-    this.#myGrid.innerHTML = html;
-    this.#namedIcons = namedIcons;
+    sectionsArray
+      .map(s => s.trim())
+      .filter(Boolean)
+      .forEach((sectionName, index) => {
+        const href = `${urlRoot}${sectionName.replace(/\s+/g, '-').toLowerCase()}/`;
+        const image = `${uiRoot}${sectionName.replace(/\s+/g, '-').toLowerCase()}.webp`;
 
-    // Attach click listeners
-    this.#namedIcons.forEach(icon => {
-      const el = document.querySelector(`#named-icon-${icon.index}`);
-      if (el) {
-        el.addEventListener('click', () => {
-          // Use route function if defined, otherwise fallback to direct navigation
-          if (window.urlRoute) {
-            window.urlRoute(icon.href);
-          } else {
-            window.location.href = icon.href;
-          }
-        });
+        // Create named-icon
+        const namedIcon = document.createElement('named-icon');
+        namedIcon.id = `named-icon-${index}`;
+        namedIcon.dataset.href = `/destination/${href}`;
+        namedIcon.setAttribute('role', 'button');
+        namedIcon.setAttribute('aria-label', sectionName);
+
+        // Create dest-icon
+        const destIcon = document.createElement('dest-icon');
+        destIcon.style.backgroundImage = `url(${image})`;
+
+        // Create icon-name
+        const iconNameEl = document.createElement('icon-name');
+        iconNameEl.textContent = sectionName;
+
+        // Assemble
+        namedIcon.appendChild(destIcon);
+        namedIcon.appendChild(iconNameEl);
+
+        // Optional spacer
+        const spacer = document.createElement('spacer');
+        spacer.id = `spacer-${index}`;
+        spacer.style.display = 'none';
+        fragment.appendChild(namedIcon);
+        fragment.appendChild(spacer);
+
+        // Keep reference
+        this.#namedIcons.push(namedIcon);
+      });
+
+    // Clear old icons and append new
+    this.#myGrid.innerHTML = '';
+    this.#myGrid.appendChild(fragment);
+
+    // Event delegation for icon clicks
+    this.#myGrid.addEventListener('click', (e) => {
+      const namedIcon = e.target.closest('named-icon');
+      if (!namedIcon) return;
+      const href = namedIcon.dataset.href;
+      if (this.#route) {
+        this.#route(href);
+      } else if (window.urlRoute) {
+        window.urlRoute(href);
+      } else {
+        window.location.href = href;
       }
     });
 
@@ -109,9 +99,10 @@ this.#destBanner.style.backgroundImage = `url(${imageUrl})`;
     this.onResize();
   }
 
-  onResize(event) {
-    // Placeholder for responsive logic
-    // You can use this.#myGrid or this.#destBanner to adjust layout dynamically
+  // Example placeholder for resize handling
+  onResize() {
+    // Your responsive layout logic here
+    logger.log('Resizing destination page...');
   }
 }
 

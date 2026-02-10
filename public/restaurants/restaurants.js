@@ -1,47 +1,76 @@
-class RestaurantsPage {
-  #goToTop
-  #fadeWrapper
-  #backButton
-  #data
+import { initRestaurants, getRestaurantById } from '../common.js';
 
-  onResize(event) {
-    
-    let ww = window.innerWidth          // window width
-    let wh = window.innerHeight         // window height
+class RestaurantsPage {
+  #route;
+
+  constructor(route) {
+    this.#route = route;
+    // Bind the click handler once so we can attach/remove safely
+    this.onCardClick = this.onCardClick.bind(this);
   }
 
-  /**
-   * the init function hooks up the backend to the frontend
+  /** 
+   * Initializes the Restaurants page 
    */
   async init() {
-    console.log('RestaurantPage.init()')
-     
-    let db = await fetch('./test/full-database.json').then((response) => response.json());
-    console.log(db.data.__collections__.aboutTheApp.aboutTheApp.description.length)
-    //console.log(db.data.__collections__.destinations.barcelona.__collections__.restaurants)
-    var restaurantsCollection = db.data.__collections__.destinations.barcelona.__collections__.restaurants
+    const data = await initRestaurants();
 
-    for (let i=2; i<5; i++)
-      console.log (Object.keys(restaurantsCollection)[i])
+    console.log("Initializing Restaurants page with data", data);
 
-    /*restaurants._children.forEach(element => {
-      console.log(element.name)
-    });*/
+    const grid = document.getElementById("my-grid");
+    if (!grid) {
+      console.error("No grid element found with ID 'my-grid'");
+      return;
+    }
 
-    this.#fadeWrapper = document.querySelector('#fade-wrapper')
-    //this.#backButton = document.querySelector('.back-icon')
-    //this.#backButton.onclick = () => location.assign('/')
+    // Render restaurant cards
+    grid.innerHTML = data
+      .map(
+        place => `
+          <div class="card" data-id="${place.id}">
+            <div class="card-image" style="background-image: url('${place.image || ''}')"></div>
+            <div class="card-info">
+              <h2>${place.name}</h2>
+              <p>${place.cost} · ${place.cuisine}</p>
+            </div>
+          </div>
+        `
+      )
+      .join("");
 
-    window.addEventListener('resize', this.onResize.bind(this), true)
+    // Add click listener to grid (event delegation)
+    grid.removeEventListener("click", this.onCardClick); // prevent duplicates
+    grid.addEventListener("click", this.onCardClick);
 
-    this.#goToTop = document.getElementById('go-to-top')
-    if (this.#goToTop) this.#goToTop.onclick = () => window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
+    // Handle window resize (optional)
+    window.addEventListener('resize', this.onResize.bind(this));
+    this.onResize();
+  }
 
-    this.onResize()
+  /** Handle card clicks for SPA navigation */
+  onCardClick(e) {
+    const card = e.target.closest(".card");
+    if (!card) return;
+
+    const restaurantId = card.dataset.id;
+    if (!restaurantId) return;
+
+    // Navigate to restaurant details using SPA router
+    const href = `/destination/restaurants/${restaurantId}/`;
+    window.history.pushState({}, "", href);
+
+    // Trigger the router
+    if (window.urlLocationHandler) {
+      window.urlLocationHandler();
+    } else {
+      console.warn("urlLocationHandler is not defined.");
+    }
+  }
+
+  /** Optional resize handler */
+  onResize() {
+    // Add responsive adjustments here if needed
   }
 }
 
-const restaurantsPage = (window.__world = new RestaurantsPage())
-restaurantsPage.init()
-
-export { RestaurantsPage }
+export { RestaurantsPage };
