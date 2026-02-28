@@ -124,7 +124,7 @@ app.get('/local_cuisine', async (req, res) => {
    FROM local_cuisine l
    JOIN destinations d ON l.destination_id = d.id
    LEFT JOIN images i ON l.image_id = i.id
-   WHERE d.name = $1`,
+   WHERE d.name = $1`, 
   [name] // name = 'Barcelona'
 
     );
