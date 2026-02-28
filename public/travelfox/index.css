@@ -22,7 +22,7 @@
 
 @font-face {
   font-family: 'Roboto';
-  src: url("/ui/Roboto-Regular.woff2") format("woff2");
+  src: url("ui/Roboto-Regular.woff2") format("woff2");
 }
 
 html {
@@ -171,29 +171,29 @@ header {
 }
 
 .world-icon {
-  background-image: url(/ui/core-icons/world-icon.webp);
+  background-image: url(ui/core-icons/world-icon.webp);
 }
 
 .to-top-icon {
-  background-image: url(/ui/core-icons/arrow-up.webp);
+  background-image: url(ui/core-icons/arrow-up.webp);
 }
 
 .profile-icon {
-  background-image: url(/ui/core-icons/profile-icon-128x128.webp);
+  background-image: url(ui/core-icons/profile-icon-128x128.webp);
 }
 
 .back-icon {
-  background-image: url(/ui/core-icons/arrow-left.webp);
+  background-image: url(ui/core-icons/arrow-left.webp);
 }
 
 .app-icon {
   cursor: default;
-  background-image: url(/ui/core-icons/logo-128x128.webp);
+  background-image: url(ui/core-icons/logo-128x128.webp);
 }
 
 .world-banner {
   background: black;
-  background-image: url(/ui/world-banners/istanbul-turkey.webp);
+  background-image: url(ui/world-banners/istanbul-turkey.webp);
   background-repeat: no-repeat;
   background-size: cover;
   background-position: 50% 50%;
@@ -456,13 +456,15 @@ select {
   display: flex;
   flex-direction: column;
   margin: 8px;
-  height: 172px;
+  height: auto;
   cursor: pointer;
   border-radius: 10px;
   background-color: white;
   padding: 8px;
   outline: solid 3px var(--header-bkg);
 }
+
+
 
 .card:hover {
   outline: solid 3px var(--accent-one);
@@ -496,7 +498,10 @@ select {
   background-position: center;
   background-repeat: no-repeat;
   flex: 1;
+  width: 100%;
+  height: auto;
 }
+
 
 .card-footer {
   font-size: .9rem;

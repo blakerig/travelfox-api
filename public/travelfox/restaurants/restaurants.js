@@ -24,19 +24,28 @@ class RestaurantsPage {
     }
 
     // Render restaurant cards
-    grid.innerHTML = data
-      .map(
-        place => `
-          <div class="card" data-id="${place.id}">
-            <div class="card-image" style="background-image: url('${place.image || ''}')"></div>
-            <div class="card-info">
-              <h2>${place.name}</h2>
-              <p>${place.cost} · ${place.cuisine}</p>
-            </div>
-          </div>
-        `
-      )
-      .join("");
+grid.innerHTML = data
+  .map(
+    place => `
+      <div class="card" data-id="${place.id}">
+        <div class="card-image">
+          <img 
+            src="${place.image_link || ''}" 
+            alt="${place.name}" 
+            loading="lazy"
+          />
+        </div>
+        <div class="card-info">
+          <h2>${place.name}</h2>
+          <p>
+            ${'€'.repeat(place.cost_rank || 0)} 
+            · ${place.cuisine}
+          </p>
+        </div>
+      </div>
+    `
+  )
+  .join("");
 
     // Add click listener to grid (event delegation)
     grid.removeEventListener("click", this.onCardClick); // prevent duplicates

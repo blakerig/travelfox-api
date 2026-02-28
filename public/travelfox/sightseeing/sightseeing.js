@@ -25,16 +25,17 @@ grid.innerHTML = data
   .map(
     place => `
       <div class="card">
-        <div class="card-image"></div>
+        <div class="card-image">
+          <img src="${place.image_link}" alt="${place.name}" />
+        </div>
         <div class="card-info">
           <h2>${place.name}</h2>
-          <p>${place.cost} - ${place.cuisine}</p>
+          <p>${place.type}</p>
         </div>
       </div>
     `
   )
   .join("");
-
 
     // Resize handling
     window.addEventListener('resize', this.onResize.bind(this), true);

@@ -95,7 +95,7 @@ console.log(name, typeof name);
   
   try {
     const result = await pool.query(
-        `SELECT r.*
+        `SELECT r.*, i.image_link
    FROM restaurants r
    JOIN destinations d ON r.destination_id = d.id
    LEFT JOIN images i ON r.image_id = i.id
@@ -120,9 +120,10 @@ app.get('/local_cuisine', async (req, res) => {
 
   try {
     const result = await pool.query(
-        `SELECT l.*
+        `SELECT l.*, i.image_link
    FROM local_cuisine l
    JOIN destinations d ON l.destination_id = d.id
+   LEFT JOIN images i ON l.image_id = i.id
    WHERE d.name = $1`,
   [name] // name = 'Barcelona'
 
@@ -145,9 +146,10 @@ app.get('/sightseeing', async (req, res) => {
 
   try {
     const result = await pool.query(
-        `SELECT s.*
+        `SELECT s.*, i.image_link
    FROM sightseeing s
    JOIN destinations d ON s.destination_id = d.id
+   LEFT JOIN images i ON s.image_id = i.id
    WHERE d.name = $1`,
   [name] // name = 'Barcelona'
 
@@ -255,7 +257,7 @@ app.get('/image', async (req, res) => {
 // --- SPA FALLBACK ---
 // Must come after API routes to catch frontend routes like /destination/restaurants/
 app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'index.html'));
+  res.sendFile(path.join(__dirname, 'public/travelfox', 'index.html'));
 });
 
 // Start server

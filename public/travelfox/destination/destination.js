@@ -1,4 +1,4 @@
-const uiRoot = '/ui/dest-icons/';
+const uiRoot = 'ui/dest-icons/';
 const urlRoot = '';
 
 import { logger } from '../common.js';
