@@ -54,6 +54,30 @@ a:hover {
   text-shadow: 0px 0px 4px white;
 }
 
+/* Container for cuisine checkboxes */
+#cuisine-options {
+  display: flex;
+  flex-direction: column; /* vertical stacking */
+  align-items: flex-start; /* optional: left-align checkboxes */
+  gap: 8px; /* space between checkboxes */
+    overflow-y: auto;
+  flex: 1 1 auto; /* fill remaining space */
+  margin-top: 12px;
+}
+
+/* Ensure labels take full width for neat layout */
+#cuisine-options label {
+  display: flex;
+  align-items: center;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+/* Optional: space between checkbox and text */
+#cuisine-options input[type="checkbox"] {
+  margin-right: 8px;
+}
+
 #fade-wrapper {
   position: fixed;
   margin-top: 48px;
@@ -502,6 +526,31 @@ select {
   height: auto;
 }
 
+.modal {
+  position: fixed;
+  inset: 0; /* top:0; bottom:0; left:0; right:0 */
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999; /* ensure above all SPA content */
+}
+
+.modal-content {
+  display:flex;
+  flex-direction: column;
+  background-color: white; /* ensure white */
+  padding: 1.5rem;
+  border-radius: 8px;
+  width: 300px;
+  max-height: 80vh; /* prevent overflow */
+  overflow-y: auto;  /* scroll if content too tall */
+}
+
+.hidden {
+  display: none;
+}
+
 
 .card-footer {
   font-size: .9rem;
@@ -516,6 +565,20 @@ select {
   text-overflow: ellipsis;
 }
 
+.modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  flex-shrink: 0;
+
+  margin-top: 12px;
+  padding: 12px 8px;
+
+  background-color: #e6e6e6;   /* slightly darker grey */
+  border-top: 1px solid #ccc;  
+  border-radius: 0 0 8px 8px;
+}
+
 /*
 #world-search-box {
   border: none;
@@ -528,3 +591,86 @@ select {
   border: none !important;
 }
 */
+
+
+
+/* ================================
+   Restaurant Details Card Layout
+================================ */
+
+
+/*#content {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 40px 16px;
+  background-color: var(--page-white);
+}
+
+.restaurant-details {
+  background: white;
+  color: var(--text-black);
+  width: 100%;
+  max-width: 720px;
+  padding: 32px;
+  border-radius: 16px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+  text-align: left;
+  animation: fadeOpacityIn 0.3s ease-out;
+}
+
+.back-btn {
+  background: none;
+  border: none;
+  color: var(--accent-one);
+  font-size: 0.95rem;
+  font-weight: 500;
+  margin-bottom: 20px;
+  cursor: pointer;
+  padding: 0;
+}
+
+.back-btn:hover {
+  text-decoration: underline;
+}
+
+.restaurant-details h1 {
+  font-size: 2rem;
+  margin-bottom: 8px;
+  color: var(--page-gray-darker);
+}
+
+.restaurant-details > p {
+  font-size: 1rem;
+  color: var(--page-gray-lighter);
+  margin-bottom: 24px;
+}
+
+.details-section {
+  margin-bottom: 24px;
+  padding-top: 16px;
+  border-top: 1px solid #eee;
+}
+
+.details-section:first-of-type {
+  border-top: none;
+  padding-top: 0;
+}
+
+.details-section h3 {
+  font-size: 0.95rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 8px;
+  color: var(--page-gray-darker);
+}
+
+.details-section p {
+  line-height: 1.6;
+  font-size: 1rem;
+  color: var(--text-black);
+}
+
+.details-section a {
+  word-break: break-word;
+}*/

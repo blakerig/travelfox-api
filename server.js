@@ -36,10 +36,17 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // PostgreSQL pool
 const pool = new Pool({
-  connectionString: "postgres://postgres:pw@13.36.39.66:5432/travelfoxdb",
-  ssl: { rejectUnauthorized: false }, // remove or adjust if your DB doesn't require SSL
-  connectionTimeoutMillis: 5000
+  connectionString: process.env.DATABASE_URL,
+  ssl: {
+    rejectUnauthorized: false
+  },
+  max: 10,
+  idleTimeoutMillis: 30000,
+  connectionTimeoutMillis: 10000
 });
+
+console.log("ghkgj");
+console.log(process.env.DATABASE_URL);
 
 // Test DB connection at startup
 pool.connect()
@@ -99,7 +106,7 @@ console.log(name, typeof name);
    FROM restaurants r
    JOIN destinations d ON r.destination_id = d.id
    LEFT JOIN images i ON r.image_id = i.id
-   WHERE d.name = $1`,
+   WHERE d.name = $1 AND r.closeddown IS NOT TRUE`,
   [name] // name = 'Barcelona'
 
     );

@@ -53,7 +53,6 @@ window.addEventListener('input', function(e) {
 // ================= LIST RESTAURANTS =================
 app.get('/restaurants', async (req, res) => {
     const selectedDestId = req.query.destination_id || '';
-
     const destinations = (await pool.query('SELECT id, name FROM destinations ORDER BY name')).rows;
 
     let destOptions = '<option value="">-- All Destinations --</option>';
@@ -68,18 +67,15 @@ app.get('/restaurants', async (req, res) => {
         LEFT JOIN destinations d ON r.destination_id = d.id
     `;
     const params = [];
-
     if (selectedDestId) {
         query += ' WHERE r.destination_id = $1';
         params.push(selectedDestId);
     }
-
     query += ' ORDER BY r.name';
 
     const restaurants = (await pool.query(query, params)).rows;
 
     let html = `${styles}<h1>Restaurants</h1>`;
-
     html += `
         <form method="GET">
             <label>Filter by Destination:
@@ -91,35 +87,18 @@ app.get('/restaurants', async (req, res) => {
         <br>
     `;
 
-    html += `
-        <table>
-            <tr>
-                <th>Name</th>
-                <th>Address</th>
-                <th>Destination</th>
-                <th>Edit</th>
-            </tr>
-    `;
-
+    html += `<table><tr><th>Name</th><th>Address</th><th>Destination</th><th>Edit</th></tr>`;
     restaurants.forEach(r => {
-        html += `
-            <tr>
-                <td>${r.name}</td>
-                <td>${r.address || ''}</td>
-                <td>${r.destination_name || ''}</td>
-                <td>
-                    <a href="/restaurant?id=${r.id}&destination_id=${selectedDestId}">Edit</a>
-                </td>
-            </tr>
-        `;
+        html += `<tr>
+            <td>${r.name}</td>
+            <td>${r.address || ''}</td>
+            <td>${r.destination_name || ''}</td>
+            <td><a href="/restaurant?id=${r.id}&destination_id=${selectedDestId}">Edit</a></td>
+        </tr>`;
     });
-
-    html += `
-        </table>
-        <br>
+    html += `</table><br>
         <a href="/restaurant${selectedDestId ? '?destination_id=' + selectedDestId : ''}">Add New Restaurant</a>
     `;
-
     res.send(html);
 });
 
@@ -133,9 +112,7 @@ app.get('/restaurant', async (req, res) => {
 
     if (id) {
         const result = await pool.query(`
-            SELECT *, 
-                ST_Y(location::geometry) AS latitude,
-                ST_X(location::geometry) AS longitude
+            SELECT *, ST_Y(location::geometry) AS latitude, ST_X(location::geometry) AS longitude
             FROM restaurants WHERE id=$1
         `, [id]);
         restaurant = result.rows[0] || {};
@@ -152,11 +129,7 @@ app.get('/restaurant', async (req, res) => {
     res.send(`${styles}
         <form method="POST" action="/restaurant${id ? '?id=' + id : ''}">
             <input type="hidden" name="return_destination_id" value="${defaultDestinationId}">
-
-            <label>Destination:
-                <select name="destination_id">${destOptions}</select>
-            </label>
-
+            <label>Destination:<select name="destination_id">${destOptions}</select></label>
             <label>Name <input name="name" value="${restaurant.name || ''}"></label>
             <label>Address <textarea name="address">${restaurant.address || ''}</textarea></label>
             <label>Description <textarea name="description">${restaurant.description || ''}</textarea></label>
@@ -173,10 +146,8 @@ app.get('/restaurant', async (req, res) => {
             <label>Proof Read <input type="checkbox" name="proof_read" ${restaurant.proof_read ? 'checked' : ''}></label>
             <label>Notes <textarea name="notes">${restaurant.notes || ''}</textarea></label>
             <label>Closed Down <input type="checkbox" name="closeddown" ${restaurant.closeddown ? 'checked' : ''}></label>
-
             <button>${id ? 'Update' : 'Add'} Restaurant</button>
         </form>
-
         <br>
         <a href="/restaurants${defaultDestinationId ? '?destination_id=' + defaultDestinationId : ''}">Back to List</a>
         ${autoExpandScript}
@@ -208,11 +179,22 @@ app.post('/restaurant', async (req, res) => {
     } = req.body;
 
     if (!destination_id && return_destination_id) destination_id = return_destination_id;
+    const isUpdate = !!id;
     if (!id) id = uuidv4();
 
-    const location = latitude && longitude ? `POINT(${longitude} ${latitude})` : null;
+    // Prepare location for PostGIS
+    let location = null;
+    if (latitude && longitude) {
+        const latNum = parseFloat(latitude);
+        const lonNum = parseFloat(longitude);
+        location = `SRID=4326;POINT(${lonNum} ${latNum})`;
+    }
 
-    if (req.query.id) {
+    const mustSeeBool = must_see === 'on';
+    const proofReadBool = proof_read === 'on';
+    const closedDownBool = closeddown === 'on';
+
+    if (isUpdate) {
         await pool.query(`
             UPDATE restaurants SET
                 destination_id=$1, name=$2, address=$3, description=$4,
@@ -224,25 +206,30 @@ app.post('/restaurant', async (req, res) => {
         `, [
             destination_id, name, address, description, cost, email, cuisine, price_range,
             website, telephone, opening_hours, location,
-            must_see === 'on', proof_read === 'on', notes, closeddown === 'on', id
+            mustSeeBool, proofReadBool, notes, closedDownBool, id
         ]);
     } else {
-        await pool.query(`
-            INSERT INTO restaurants (
-                id, destination_id, name, address, description, cost,
-                email, cuisine, price_range, website, telephone,
-                opening_hours, location, must_see, proof_read, notes, closeddown
-            ) VALUES (
-                $1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,
-                CASE WHEN $13::text IS NULL THEN NULL ELSE ST_GeogFromText($13::text) END,
-                $14,$15,$16,$17
-            )
-        `, [
-            id, destination_id, name, address, description, cost,
-            email, cuisine, price_range, website, telephone,
-            opening_hours, location,
-            must_see === 'on', proof_read === 'on', notes, closeddown === 'on'
-        ]);
+        console.log("else " + location);
+
+await pool.query(`
+    INSERT INTO restaurants (
+        id, destination_id, name, address, description, cost,
+        email, cuisine, price_range, website, telephone,
+        opening_hours, location, must_see, proof_read, notes, closeddown
+    ) VALUES (
+        $1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,
+        CASE WHEN $13::text IS NULL THEN NULL ELSE ST_GeogFromText($13::text) END,
+        $14,$15,$16,$17
+    )
+`, [
+    id, destination_id, name, address, description, cost,
+    email, cuisine, price_range, website, telephone,
+    opening_hours, location,   // <--- $13
+    mustSeeBool,               // <--- $14
+    proofReadBool,             // <--- $15
+    notes,                     // <--- $16
+    closedDownBool             // <--- $17
+]);
     }
 
     res.redirect(
@@ -253,4 +240,4 @@ app.post('/restaurant', async (req, res) => {
 });
 
 // ================= START SERVER =================
-app.listen(port, () => console.log(`App running on http://localhost:${port}`));
+app.listen(port, () => console.log(`App running ons http://localhost:${port}`));

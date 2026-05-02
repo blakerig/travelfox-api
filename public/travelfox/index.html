@@ -20,7 +20,19 @@
     <link id="myCss" href="./index.css" rel="stylesheet" />
 </head>
 <body>
-ghjgj
+
+    <!-- Popup Modal: GLOBAL -->
+  <div id="cuisine-modal" class="modal hidden">
+    <div class="modal-content">
+      <h3>Select cuisines</h3>
+      <div id="cuisine-options"></div>
+      <div class="modal-actions">
+        <button id="apply-filter">Apply</button>
+        <button id="close-modal">Close</button>
+      </div>
+    </div>
+  </div>
+
   <div id="content" style="width: 100%; height: 100%; overflow-y: visible">
       <!-- this header is just to be shown quickly, it will be wiped soon -->
       <!-- because content is going to get injected here magically (SPA)! -->

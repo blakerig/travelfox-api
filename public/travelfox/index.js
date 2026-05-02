@@ -47,12 +47,25 @@ const urlRoutes = {
     },
     description: "This is the essentials page",
   },
-  "/destination/restaurants/": {
-    template: `${APP_ROOT}restaurants/restaurants.html`,
-    title: "Test | " + urlPageTitle,
-    hook: () => new RestaurantsPage('./restaurants/').init(),
-    description: "This is the restaurants page",
+"/destination/restaurants/": {
+  template: `${APP_ROOT}restaurants/restaurants.html`,
+  title: "Test | " + urlPageTitle,
+  hook: async () => {
+      console.log("Restaurant page hook running");
+
+    // Wait until the template is rendered into #content
+    const content = document.querySelector("#content");
+      console.log("Content element:", content);
+
+    if (!content) return;
+
+    // Initialize the RestaurantsPage AFTER the HTML exists
+    const page = new RestaurantsPage('./restaurants/');
+    await page.init();
   },
+  description: "This is the restaurants page",
+},
+
   "/destination/activities/": {
     template: `${APP_ROOT}activities/activities.html`,
     title: "Test | " + urlPageTitle,

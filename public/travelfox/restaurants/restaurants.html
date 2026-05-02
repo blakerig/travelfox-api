@@ -1,19 +1,24 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Restaurants</title>
-  <link rel="stylesheet" href="styles.css" />
-</head>
 <body>
-
   <header class="top-bar">
     <h1>Restaurants</h1>
   </header>
 
-  <grid id="my-grid" style="">
+  <section class="filter-section">
+    <button id="cuisine-button">Cuisine</button>
+  </section>
 
+  <!-- Restaurant Grid -->
+  <div id="my-grid" class="grid"></div>
 
+  <!-- Popup Modal (global, outside #content) -->
+  <div id="cuisine-modal" class="modal hidden">
+    <div class="modal-content">
+      <h3>Select cuisines</h3>
+      <div id="cuisine-options"></div>
+      <div class="modal-actions">
+        <button id="apply-filter">Apply</button>
+        <button id="close-modal">Close</button>
+      </div>
+    </div>
+  </div>
 </body>
-</html>

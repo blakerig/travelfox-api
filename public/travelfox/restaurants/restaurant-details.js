@@ -31,7 +31,7 @@ class RestaurantDetailsPage {
     }
 
     // Render the details page
-    app.innerHTML = `
+    app.innerHTML = app.innerHTML + `
       <div class="restaurant-details">
         <button class="back-btn">← Back to Restaurants</button>
 
