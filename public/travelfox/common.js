@@ -8,13 +8,16 @@
 export const uiRoot = '/ui/dest-icons/';
 export const urlRoot = '';
 //export const API_ROOT = import.meta?.env?.VITE_API_ROOT || 'https://travelfox-api.onrender.com';
-export const API_ROOT = 'http://localhost:3000';
+export const API_ROOT = 'https://travelfox-api.onrender.com';
+//export const API_ROOT = 'http://localhost:3000';
+//export const API_ROOT = 'https://travelfox-api.onrender.com';
+console.log("dhsdhk");
 //export const APP_ROOT = "/";
 
 //export const API_ROOT = "https://travelfox-api.onrender.com" /* UNCOMMENT THIS FOR CONNECT TO REMOTE HOST */
 
-export const APP_ROOT = location.hostname === 'localhost' ? '/travelfox/' : '/travelfox/';
-
+//export const APP_ROOT = location.hostname === 'localhost' ? '/travelfox/' : '/travelfox/';
+export const APP_ROOT = '/';
 //window.APP_ROOT = "/";
 window.APP_ROOT = APP_ROOT;
 

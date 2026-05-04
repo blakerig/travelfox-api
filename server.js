@@ -5,7 +5,7 @@ import cors from 'cors';
 import { Pool } from 'pg';
 import path from 'path';
 import { fileURLToPath } from 'url';
-import 'dotenv/config'; // optional, loads DATABASE_URL from .env
+import 'dotenv/config';
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -16,16 +16,11 @@ const __dirname = path.dirname(__filename);
 
 // Dev-friendly CORS
 app.use(cors({
-  origin: [
-    'http://localhost:3000',
-    'http://127.0.0.1:3000',
-    'https://thecitytrail.com'
-    // add your frontend URL if hosted remotely
-  ]
+  origin: '*'
 }));
 
 // Serve static frontend files
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'public/travelfox')));
 
 
 // Check DATABASE_URL
@@ -232,7 +227,7 @@ console.log(name, typeof name);
    FROM local_cuisine l
    JOIN destinations d ON l.destination_id = d.id
    WHERE d.name = $1`,
-  ["Barcelona"] // name = 'Barcelona'
+  [name] // name = 'Barcelona'
 
     );
     console.log(result);
@@ -264,7 +259,7 @@ app.get('/image', async (req, res) => {
 // --- SPA FALLBACK ---
 // Must come after API routes to catch frontend routes like /destination/restaurants/
 app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public/travelfox', 'index.html'));
+  res.sendFile(path.join(__dirname, 'public/travelfox/index.html'));
 });
 
 // Start server
