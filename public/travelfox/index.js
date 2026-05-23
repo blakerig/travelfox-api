@@ -14,7 +14,8 @@ const BASE_PATH = APP_ROOT.replace(/\/$/, ""); // "/travelfox"
 
 // Global urlRoute function
 const urlRoute = (href) => {
-  window.history.pushState({}, "", href);
+  window.location.hash = href;
+ // window.history.pushState({}, "", href);
   urlLocationHandler();
 };
 
@@ -104,7 +105,9 @@ const urlRoutes = {
 // -------------------- URL HANDLER --------------------
 const urlLocationHandler = async () => {
   // Get current path relative to BASE_PATH
-  let location = window.location.pathname.replace(BASE_PATH, "") || "/";
+  //let location = window.location.pathname.replace(BASE_PATH, "") || "/";
+  // let location = window.location.pathname.replace(BASE_PATH, "") || "/";
+  let location = window.location.hash.slice(1) || "/destination/";
   
   // Treat / or /index.html as /destination/ internally
   let isInitialIndex = false;
@@ -182,8 +185,10 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   if ('serviceWorker' in navigator) {
     try {
-      const registration = await navigator.serviceWorker.register(`${BASE_PATH}/service-worker.js`);
-      console.log('Service Worker registered with scope:', registration.scope);
+//    const registration = await navigator.serviceWorker.register(`${BASE_PATH}/service-worker.js`);
+//    console.log('Service Worker registered with scope:', registration.scope);
+  console.log('Service Worker disabled for development');
+
     } catch (error) {
       console.error('Service Worker registration failed:', error);
     }
